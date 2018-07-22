@@ -64,16 +64,19 @@ def get_categories():
             'http://www.yellowpagesofafrica.com/country/congo-democratic-republic-of-the/')
         data = (" ".join(r.data.decode('ISO-8859-1').splitlines())).replace(
             "\t", "")
-        categories = re.findall('\/" title="(.*?) - RDC"', data)
-        for category in categories:
-            print("Processing for category " + category)
-            if flag == 1:
-                get_page(baseurl + "/companies/congo-democratic-republic-of-the/" +
-                      category.lower().replace(" ", "-"), category)
-            elif category == "vocational training centers":
-                flag = 1
-    except Exception:
-        print("Categories download failed")
+        ctr_re = re.search('id="sM2" value="(.*?)"', data)
+        if ctr_re:
+            categories = re.findall('\/" title="(.*?) - {0}"'.format(
+                ctr_re.group(1)), data)
+            for category in categories:
+                print("Processing for category " + category)
+                if flag == 1:
+                    get_page(baseurl + "/companies/congo-democratic-republic-of-the/" +
+                          category.lower().replace(" ", "-"), category)
+                elif category == "vocational training centers":
+                    flag = 1
+    except Exception as e:
+        print("Categories download failed " + str(e))
 
 
 get_categories()
