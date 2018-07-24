@@ -6,7 +6,7 @@ baseurl = "http://www.yellowpagesofafrica.com"
 http = urllib3.PoolManager()
 
 
-def parse_data(url, category):
+def parse_data(url, category, country):
     try:
         print("Processing for url " + url)
 
@@ -40,46 +40,58 @@ def parse_data(url, category):
             website = match.group(1)
 
         fh = open("output.txt", "a")
-        fh.write(name + "|" + address + "|" + ville + "|" +
-              category.capitalize() +
-              "|" + contact + "|" + email + "|" + website + "\n")
+        fh.write(url + "|" + country.capitalize() + "|" + name + "|" +
+                 address + "|" + ville + "|" + category.capitalize() + "|" +
+                 contact + "|" + email + "|" + website + "\n")
         fh.close()
     except Exception:
         print("Data url download failed")
 
-def get_page(page, category):
+def get_page(page, category, country):
     r = http.request('GET', page)
     data = (" ".join(r.data.decode('ISO-8859-1').splitlines())).replace(
         "\t", "")
     values = re.findall('<a href="(\/submit\/change\/.*?\/)" '
                             'style="cursor: pointer;">', data)
     for value in values:
-        parse_data(baseurl + value, category)
+        parse_data(baseurl + value, category, country)
 
-def get_categories():
+def get_categories(url, country):
     flag = 0
     try:
-        r = http.request(
-            'GET',
-            'http://www.yellowpagesofafrica.com/country/congo-democratic-republic-of-the/')
+        r = http.request('GET', url)
         data = (" ".join(r.data.decode('ISO-8859-1').splitlines())).replace(
             "\t", "")
         ctr_re = re.search('id="sM2" value="(.*?)"', data)
         if ctr_re:
             categories = re.findall('\/" title="(.*?) - {0}"'.format(
-                ctr_re.group(1)), data)
+                ctr_re.group(1).upper()), data)
             for category in categories:
                 print("Processing for category " + category)
-                if flag == 1:
-                    get_page(baseurl + "/companies/congo-democratic-republic-of-the/" +
-                          category.lower().replace(" ", "-"), category)
-                elif category == "vocational training centers":
-                    flag = 1
+                #if flag == 1:
+                get_page(baseurl + "/companies/" + country + "/" +
+                          category.lower().replace(" ", "-"), category, country)
+                #elif category == "vocational training centers":
+                #    flag = 1
     except Exception as e:
         print("Categories download failed " + str(e))
 
+def get_countries():
+    #############################
+    # Get list of all countries
+    #############################
+    flag = 0
+    r = http.request(
+        'GET',
+        'http://www.yellowpagesofafrica.com')
+    data = (" ".join(r.data.decode('ISO-8859-1').splitlines())).replace(
+        "\t", "")
+    countries = re.findall('<a href="(/country/(.*?)/)">', data)
+    for url, country in countries:
+        print("Processing for country " + country)
+        #if flag == 1:
+        get_categories(baseurl + url, country)
+        #elif country == "gabon":
+        #    flag = 1
 
-get_categories()
-#for category in categories:
-#    page = baseurl + '/' + category
-#    get_page(page)
+get_countries()
