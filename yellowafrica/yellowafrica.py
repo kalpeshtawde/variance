@@ -40,11 +40,10 @@ def parse_data(url, category, country):
             website = match.group(1)
 
         fh = open("output.txt", "a")
-        fh.write(url + "|" + country + "|" + name + "|" + address + "|" +
-                 ville + "|" + category.capitalize() + "|" + contact + "|" +
-                 email + "|" + website + "\n")
+        fh.write(url + "|" + country.capitalize() + "|" + name + "|" +
+                 address + "|" + ville + "|" + category.capitalize() + "|" +
+                 contact + "|" + email + "|" + website + "\n")
         fh.close()
-        exit()
     except Exception:
         print("Data url download failed")
 
@@ -55,7 +54,7 @@ def get_page(page, category, country):
     values = re.findall('<a href="(\/submit\/change\/.*?\/)" '
                             'style="cursor: pointer;">', data)
     for value in values:
-        parse_data(baseurl + value, category)
+        parse_data(baseurl + value, category, country)
 
 def get_categories(url, country):
     flag = 0
@@ -63,19 +62,22 @@ def get_categories(url, country):
         r = http.request('GET', url)
         data = (" ".join(r.data.decode('ISO-8859-1').splitlines())).replace(
             "\t", "")
-        categories = re.findall('\/" title="(.*?) - RDC"', data)
-        print(categories)
-        for category in categories:
-            print("Processing for category " + category)
-            if flag == 1:
+        ctr_re = re.search('id="sM2" value="(.*?)"', data)
+        if ctr_re:
+            categories = re.findall('\/" title="(.*?) - {0}"'.format(
+                ctr_re.group(1).upper()), data)
+            for category in categories:
+                print("Processing for category " + category)
+                #if flag == 1:
                 get_page(baseurl + "/companies/" + country + "/" +
-                      category.lower().replace(" ", "-"), category, country)
-            elif category == "vocational training centers":
-                flag = 1
-    except Exception:
-        print("Categories download failed")
+                          category.lower().replace(" ", "-"), category, country)
+                #elif category == "vocational training centers":
+                #    flag = 1
+    except Exception as e:
+        print("Categories download failed " + str(e))
 
 def get_countries():
+    flag = 0
     r = http.request(
         'GET',
         'http://www.yellowpagesofafrica.com')
@@ -84,6 +86,9 @@ def get_countries():
     countries = re.findall('<a href="(/country/(.*?)/)">', data)
     for url, country in countries:
         print("Processing for country " + country)
-        get_categories(baseurl + url, country)
+        if flag == 1:
+            get_categories(baseurl + url, country)
+        elif country == "gabon":
+            flag = 1
 
 get_countries()
