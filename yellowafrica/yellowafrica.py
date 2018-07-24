@@ -77,6 +77,9 @@ def get_categories(url, country):
         print("Categories download failed " + str(e))
 
 def get_countries():
+    #############################
+    # Get list of all countries
+    #############################
     flag = 0
     r = http.request(
         'GET',
