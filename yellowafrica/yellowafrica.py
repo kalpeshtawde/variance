@@ -86,9 +86,9 @@ def get_countries():
     countries = re.findall('<a href="(/country/(.*?)/)">', data)
     for url, country in countries:
         print("Processing for country " + country)
-        if flag == 1:
-            get_categories(baseurl + url, country)
-        elif country == "gabon":
-            flag = 1
+        #if flag == 1:
+        get_categories(baseurl + url, country)
+        #elif country == "gabon":
+        #    flag = 1
 
 get_countries()
