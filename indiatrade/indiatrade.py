@@ -79,11 +79,7 @@ def get_mfgs(url, category, type):
 
         page += 1
 
-get_mfgs('https://www.tradeindia.com/design2017/products/components'
-          '/leaf_categories_product_listing_grid_list.html?keyword=toy%20'
-         '&sort_filter_applied=1&nobs=ifmanu&es_city_stat=1&%20games'
-         '&design_2017=1&categories=1139&premium_membership=1&cat_id'
-         '=&business_kw_id=&show_other_components=0', 'Toys', 'Manufacturer')
+get_mfgs('https://www.tradeindia.com/design2017/products/components/leaf_categories_product_listing_grid_list.html?categories=913&design_2017=1&%20promotional%20gifts&sort_filter_applied=1&nobs=ifmanu&premium_membership=1&keyword=corporate%20&es_city_stat=1&cat_id=&business_kw_id=&show_other_components=0', 'Gifts', 'Manufacturer')
 
 
 # def get_mfgs(url, category):
