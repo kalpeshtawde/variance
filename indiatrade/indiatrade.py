@@ -40,7 +40,7 @@ def get_seller_details(seller_url):
 
 def get_mfgs(url, category, type):
     flag = True
-    page = 17
+    page = 77
     while flag:
         print("Page " + str(page))
 
@@ -72,8 +72,8 @@ def get_mfgs(url, category, type):
             details = get_seller_details(mfg_url)
 
             fh = open("output.txt", "a", encoding="utf-8")
-            fh.write(mfg_url + "|" + mfg_name + "|" + category + "|" + category
-                  + "|" + type + "|" + mfg_phone + "|" + details + "|" +
+            fh.write(mfg_url + "|" + mfg_name + "|" + category + "|" + type
+                     + "|" + mfg_phone + "|" + details + "|" +
                   mfg_rating + "|" + mfg_certified + "\n")
             fh.close()
 
