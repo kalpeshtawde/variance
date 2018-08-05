@@ -13,6 +13,7 @@ flag = True
 while flag:
     files = [f for f in listdir(mypath) if isfile(join(mypath, f))]
     if not files:
+        print("Sleeping for 10 minutes")
         time.sleep(600)
     else:
         for file in files:
@@ -26,16 +27,3 @@ while flag:
             else:
                 os.unlink("{0}/{1}".format(mypath, file))
 
-
-#f = open('working-draft.txt', 'rb')
-#response = client.put_file('/magnum-opus.txt', f)
-#print 'uploaded: ', response
-
-#folder_metadata = client.metadata('/')
-#print 'metadata: ', folder_metadata
-
-#f, metadata = client.get_file_and_metadata('/magnum-opus.txt')
-#out = open('magnum-opus.txt', 'wb')
-#out.write(f.read())
-#out.close()
-#print metadata
