@@ -5,7 +5,7 @@ import dropbox
 from os import listdir
 from os.path import isfile, join
 
-dbx = dropbox.Dropbox("O8tHMaacfEAAAAAAAAAAMUdtwFltXBBYlNgmm_9NyKkw9aCDowCJX30kimSp7V5g")
+dbx = dropbox.Dropbox("O8tHMaacfEAAAAAAAAAAeyMCLUL1cNBTesZVLBIKTpP8AQ1_WdYbYEe_We4P63UA")
 
 mypath = "/home/ec2-user/data/electoral"
 
