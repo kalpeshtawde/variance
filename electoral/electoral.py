@@ -5,7 +5,7 @@ import dropbox
 from os import listdir
 from os.path import isfile, join
 
-dbx = dropbox.Dropbox("O8tHMaacfEAAAAAAAAAAeyMCLUL1cNBTesZVLBIKTpP8AQ1_WdYbYEe_We4P63UA")
+dbx = dropbox.Dropbox("O8tHMaacfEAAAAAAAAAAlf7T53lw26U0GqmaIFq4F0YK7dA0_FwsTOEKf2vjnAVn")
 
 mypath = "/home/ec2-user/data/electoral"
 
@@ -17,7 +17,7 @@ mapping = [
 #    "1:10-10"
 #   "2:11-19",
 #   "3:20-34",
-   "4:36-53",
+#   "4:36-53",
 #   "5:54-68",
 #   "6:69-84",
 #   "7:85-101",
@@ -25,7 +25,7 @@ mapping = [
 #   "9:114-123",
 #   "10:124-133",
 #   "11:134-147",
-#   "12:148-161",
+   "12:148-161",
 #   "13:162-175"
 ]
 
@@ -64,7 +64,8 @@ for val in mapping:
         const = str(const)
         page = 1
         while page > 0:
-            space = get_free_size()
+            #space = get_free_size()
+            space = 1000000002
             if space < 1000000000:
                 print("Space full sleeping for 20 minutes")
                 time.sleep(1200)

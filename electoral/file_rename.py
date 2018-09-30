@@ -1,26 +1,182 @@
 import re
 import dropbox
 
-dbx = dropbox.Dropbox("O8tHMaacfEAAAAAAAAAAeyMCLUL1cNBTesZVLBIKTpP8AQ1_WdYbYEe_We4P63UA")
-
-DROPBOX_INPUT_PATH = "/ENGLISH_PDF_1/"
-
-response = dbx.files_list_folder(path=DROPBOX_INPUT_PATH)
-
 district = {
     1:"1-Srikakulam",
-    2:"2-Vizianagaram",
-    3:"3-Visakhapatnam",
-    4:"4-East Godavari",
-    5:"5-West Godavari",
-    6:"6-Krishna",
-    7:"7-Guntur",
-    8:"8-Prakasam",
-    9:"9-Nellore",
-    10:"10-Kadapa",
-    11:"11-Kurnool",
-    12:"12-Anantapur",
-    13:"13-Chittoor"
+    2:"1-Srikakulam",
+    3:"1-Srikakulam",
+    4:"1-Srikakulam",
+    5:"1-Srikakulam",
+    6:"1-Srikakulam",
+    7:"1-Srikakulam",
+    8:"1-Srikakulam",
+    9:"1-Srikakulam",
+    10:"1-Srikakulam",
+    11:"2-Vizianagaram",
+    12:"2-Vizianagaram",
+    13:"2-Vizianagaram",
+    14:"2-Vizianagaram",
+    15:"2-Vizianagaram",
+    16:"2-Vizianagaram",
+    17:"2-Vizianagaram",
+    18:"2-Vizianagaram",
+    19:"2-Vizianagaram",
+    20:"3-Visakhapatnam",
+    21:"3-Visakhapatnam",
+    22:"3-Visakhapatnam",
+    23:"3-Visakhapatnam",
+    24:"3-Visakhapatnam",
+    25:"3-Visakhapatnam",
+    26:"3-Visakhapatnam",
+    27:"3-Visakhapatnam",
+    28:"3-Visakhapatnam",
+    29:"3-Visakhapatnam",
+    30:"3-Visakhapatnam",
+    31:"3-Visakhapatnam",
+    32:"3-Visakhapatnam",
+    33:"3-Visakhapatnam",
+    34:"3-Visakhapatnam",
+    35:"4-East Godavari",
+    36:"4-East Godavari",
+    37:"4-East Godavari",
+    38:"4-East Godavari",
+    39:"4-East Godavari",
+    40:"4-East Godavari",
+    41:"4-East Godavari",
+    42:"4-East Godavari",
+    43:"4-East Godavari",
+    44:"4-East Godavari",
+    45:"4-East Godavari",
+    46:"4-East Godavari",
+    47:"4-East Godavari",
+    48:"4-East Godavari",
+    49:"4-East Godavari",
+    50:"4-East Godavari",
+    51:"4-East Godavari",
+    52:"4-East Godavari",
+    53:"4-East Godavari",
+    54:"5-West Godavari",
+    55:"5-West Godavari",
+    56:"5-West Godavari",
+    57:"5-West Godavari",
+    58:"5-West Godavari",
+    59:"5-West Godavari",
+    60:"5-West Godavari",
+    61:"5-West Godavari",
+    62:"5-West Godavari",
+    63:"5-West Godavari",
+    64:"5-West Godavari",
+    65:"5-West Godavari",
+    66:"5-West Godavari",
+    67:"5-West Godavari",
+    68:"5-West Godavari",
+    69:"6-Krishna",
+    70:"6-Krishna",
+    71:"6-Krishna",
+    72:"6-Krishna",
+    73:"6-Krishna",
+    74:"6-Krishna",
+    75:"6-Krishna",
+    76:"6-Krishna",
+    77:"6-Krishna",
+    78:"6-Krishna",
+    79:"6-Krishna",
+    80:"6-Krishna",
+    81:"6-Krishna",
+    82:"6-Krishna",
+    83:"6-Krishna",
+    84:"6-Krishna",
+    85:"7-Guntur",
+    86:"7-Guntur",
+    87:"7-Guntur",
+    88:"7-Guntur",
+    89:"7-Guntur",
+    90:"7-Guntur",
+    91:"7-Guntur",
+    92:"7-Guntur",
+    93:"7-Guntur",
+    94:"7-Guntur",
+    95:"7-Guntur",
+    96:"7-Guntur",
+    97:"7-Guntur",
+    98:"7-Guntur",
+    99:"7-Guntur",
+    100:"7-Guntur",
+    101:"7-Guntur",
+	102:"8-Prakasam",
+	103:"8-Prakasam",
+	104:"8-Prakasam",
+	105:"8-Prakasam",
+	106:"8-Prakasam",
+	107:"8-Prakasam",
+	108:"8-Prakasam",
+	109:"8-Prakasam",
+	110:"8-Prakasam",
+	111:"8-Prakasam",
+	112:"8-Prakasam",
+	113:"8-Prakasam",
+    114:"9-Nellore",
+    115:"9-Nellore",
+    116:"9-Nellore",
+    117:"9-Nellore",
+    118:"9-Nellore",
+    119:"9-Nellore",
+    120:"9-Nellore",
+    121:"9-Nellore",
+    122:"9-Nellore",
+    123:"9-Nellore",
+    124:"10-Kadapa",
+    125:"10-Kadapa",
+    126:"10-Kadapa",
+    127:"10-Kadapa",
+    128:"10-Kadapa",
+    129:"10-Kadapa",
+    130:"10-Kadapa",
+    131:"10-Kadapa",
+    132:"10-Kadapa",
+    133:"10-Kadapa",
+    134:"11-Kurnool",
+    135:"11-Kurnool",
+    136:"11-Kurnool",
+    137:"11-Kurnool",
+    138:"11-Kurnool",
+    139:"11-Kurnool",
+    140:"11-Kurnool",
+    141:"11-Kurnool",
+    142:"11-Kurnool",
+    143:"11-Kurnool",
+    144:"11-Kurnool",
+    145:"11-Kurnool",
+    146:"11-Kurnool",
+    147:"11-Kurnool",
+    148:"12-Anantapur",
+    149:"12-Anantapur",
+    150:"12-Anantapur",
+    151:"12-Anantapur",
+    152:"12-Anantapur",
+    153:"12-Anantapur",
+    154:"12-Anantapur",
+    155:"12-Anantapur",
+    156:"12-Anantapur",
+    157:"12-Anantapur",
+    158:"12-Anantapur",
+    159:"12-Anantapur",
+    160:"12-Anantapur",
+    161:"12-Anantapur",
+    162:"13-Chittoor",
+    163:"13-Chittoor",
+    164:"13-Chittoor",
+    165:"13-Chittoor",
+    166:"13-Chittoor",
+    167:"13-Chittoor",
+    168:"13-Chittoor",
+    169:"13-Chittoor",
+    170:"13-Chittoor",
+    171:"13-Chittoor",
+    172:"13-Chittoor",
+    173:"13-Chittoor",
+    174:"13-Chittoor",
+    175:"13-Chittoor"
 }
 
 const = {
@@ -125,23 +281,18 @@ const = {
     99:"99-Vinukonda",
     100:"100-Gurajala",
     101:"101-Macherla",
-    85:"85-Pedakurapadu",
-    86:"86-Tadikonda (SC)",
-    87:"87-Mangalagiri",
-    88:"88-Ponnur",
-    89:"89-Vemuru (SC)",
-    90:"90-Repalle",
-    91:"91-Tenali",
-    92:"92-Bapatla",
-    93:"93-Prathipadu (SC)",
-    94:"94-Guntur West",
-    95:"95-Guntur East",
-    96:"96-Chilakaluripet",
-    97:"97-Narasaraopet",
-    98:"98-Sattenapalle",
-    99:"99-Vinukonda",
-    100:"100-Gurajala",
-    101:"101-Macherla",
+    102:"102-Yerragondapalem (SC)",
+    103:"103-Darsi",
+    104:"104-Parchur",
+    105:"105-Addanki",
+    106:"106-Chirala",
+    107:"107-Santhanuthalapadu (SC)",
+    108:"108-Ongole",
+    109:"109-Kandukur",
+    110:"110-Kondapi (SC)",
+    111:"111-Markapuram",
+    112:"112-Giddalur",
+    113:"113-Kanigiri",
     114:"114-Kavali",
     115:"115-Atmakur",
     116:"116-Kovur",
@@ -206,14 +357,34 @@ const = {
     175:"175-Kuppam"
 }
 
+dbx = dropbox.Dropbox(
+    "O8tHMaacfEAAAAAAAAAAeyMCLUL1cNBTesZVLBIKTpP8AQ1_WdYbYEe_We4P63UA"
+)
+
+DROPBOX_INPUT_PATH = "/1-Srikakulam/"
+
+response = dbx.files_list_folder(path=DROPBOX_INPUT_PATH, recursive=True)
+
 for entry in response.entries:
-    print(entry.name)
     r = re.match('S01A(\d\d\d)P(\d\d\d).PDF', entry.name)
     if r:
         d = r.group(1).lstrip("0")
         c = r.group(2).lstrip("0")
-        do = district[1]
-        co = const[c]
-        print(do)
-        print(co)
-    exit()
+        do = district[int(d)]
+        co = const[int(d)]
+        from_path = entry.path_display
+        to_path = "/DATA/{}/{}/{}".format(do, co, entry.name)
+        try:
+            dbx.files_get_metadata(to_path)
+        except Exception as e:
+            print("Copying file From: {} To: {}".format(from_path,
+                                                        to_path))
+            try:
+                dbx.files_move(from_path, to_path)
+                #dbx.files_delete(from_path)
+            except Exception as e:
+                print("File copy failed for {}".format(str(e)))
+        else:
+            print("File already exists {}. File deleted.".format(
+                from_path))
+            dbx.files_delete(from_path)
